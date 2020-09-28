@@ -1,0 +1,144 @@
+<div class="container">
+  <br />
+  <br />
+  <div>
+    <h1 class=" row justify-content-md-center display-5">
+      Williams-Sonoma
+    </h1>
+  </div>
+
+  <br />
+  <br />
+  <br />
+
+  <div class="row justify-content-md-center">
+
+
+
+    <form [formGroup]="angularForm" novalidate>
+      <div class="row justify-content-md-center">
+
+        <input class="form-control" formControlName="search" type="text" placeholder="Search Products" size="50%" />
+        <br />
+        <br />
+        <br />
+
+        <div>
+          <button (click)="get_products()" class="btn btn-success">
+            Search
+          </button>
+
+        </div>
+
+
+
+      </div>
+
+
+
+
+
+      <br />
+      <br />
+
+      <div class="row justify-content-md-center alert alert-warning"> {{message}} </div>
+      <br />
+      <br />
+
+    </form>
+    <br />
+
+  </div>
+
+
+
+  <div *ngIf="products?.length > 0">
+
+
+
+    <div class="container">
+      <div class="row">
+
+
+
+        <div *ngFor="let prod of products  " class=" py-3   col-xs-12 col-sm-4  ">
+
+
+
+
+          <div class="thumbnail">
+            <a class="button" href="#popup1{{prod.id}}"> <img src="{{prod.imageUrl}}" /> </a>
+            <div class="bottom-left"> <i> <s> {{prod.regular}} </s> </i> <b> {{prod.selling}} </b></div>
+            <div class="top-left"> {{prod.name}} </div>
+
+          </div>
+          <a href="{{prod.url}} "> {{prod.name}} </a>
+
+
+
+
+
+
+        </div>
+
+      </div>
+    </div>
+
+
+
+    <!---------- BEGIN  OVERLAY --------------------------------------------------------------->
+
+
+    <div *ngFor="let prod of products  ">
+      <div id="popup1{{prod.id}}" class="overlay">
+
+        <a class="close" href="#"> <button> CLOSE X</button> </a>
+
+        <div class="popup">
+
+          <div id="demo{{prod.id}}" class="carousel slide" data-ride="carousel">
+
+
+
+            <!-- Indicators -->
+            <ul class="carousel-indicators">
+
+              <ng-container *ngFor="let im of prod.images; let i=index">
+                <li [attr.data-target]="'#demo'+prod.id" [attr.data-slide-to]="i" [ngClass]="{'active': i == 0}"></li>
+
+              </ng-container>
+            </ul>
+
+
+            <!-- The slideshow -->
+            <div class="carousel-inner">
+              <ng-container *ngFor="let im of prod.images; let i=index">
+                <div class="carousel-item" [ngClass]="{'active': i == 0}">
+                  <img src="{{im['href']}}" width="1100" height="500">
+                </div>
+              </ng-container>
+
+            </div>
+
+            <!-- Left and right controls -->
+            <a class="carousel-control-prev" href="#demo{{prod.id}}" data-slide="prev">
+              <span class="carousel-control-prev-icon"></span>
+            </a>
+            <a class="carousel-control-next" href="#demo{{prod.id}}" data-slide="next">
+              <span class="carousel-control-next-icon"></span>
+            </a>
+          </div>
+
+
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+  <!---------- END OVERLAY --------------------------------------------------------------->
+
+
+
+
+</div>
